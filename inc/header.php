@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Landing Page</title>
-    <link rel="stylesheet" href="<?= $base_url_user ?>assets/cssku/style.css">
+    <link rel="stylesheet" href="<?= $base_url_user ?>assets/css/style.css">
     <link rel="stylesheet" href="<?= $base_url_user ?>assets/bootstrap5/css/bootstrap.min.css">
 </head>
 <body>
