@@ -1,5 +1,5 @@
 <?php
-include 'config/config.php';
+// include 'config/config.php';
 
 $query = "SELECT * FROM produk LIMIT 9";
 $result = mysqli_query($conn, $query);
@@ -9,20 +9,19 @@ ini_set('display_errors', 1);
 ?>
 
 <!-- Hero Section -->
-    <section class="hero-section text-center">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-4">Professional Laptop Repair & Service</h1>
-            <p class="lead mb-5">Fast, reliable, and affordable laptop repair services with warranty guarantee</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="booking.php" class="btn btn-primary btn-lg px-4">
-                    <i class="fas fa-calendar-check me-2"></i>Book Service Now
-                </a>
-                <a href="#services" class="btn btn-outline-light btn-lg px-4">
-                    <i class="fas fa-tools me-2"></i>Our Services
-                </a>
-            </div>
-        </div>
-    </section>
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary"> 
+        <div class="col-md-6 p-lg-5 mx-auto my-5"> 
+            <h1 class="display-3 fw-bold">Designed for engineers</h1> 
+            <h3 class="fw-normal text-muted mb-3">Build anything you want with Aperture</h3> 
+            <div class="d-flex gap-3 justify-content-center lead fw-normal"> 
+                <a class="icon-link" href="#">Learn more
+                <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg> </a> 
+                <a class="icon-link" href="#">Buy
+                <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg> </a> 
+            </div> 
+        </div> 
+        <div class="product-device shadow-sm d-none d-md-block"></div> <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div> 
+    </div>
 
     <!-- Services Section -->
     <section id="services" class="py-5">

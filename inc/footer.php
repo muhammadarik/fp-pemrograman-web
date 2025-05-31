@@ -1,3 +1,3 @@
-</body>
-<script src="<?= $base_url_user ?>assets/bootstrap5/js/bootstrap.bundle.min.js"></script>
+<script src="<?= BASE_URL ?>/assets/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
