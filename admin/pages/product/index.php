@@ -59,7 +59,7 @@ if (isset($_POST['tambah'])) {
         }
     }
 
-    // Saya akan tetap pakai mysqli_query seperti di kode asli Anda, tapi sangat disarankan pakai prepared statement.
+    //query untuk insert produk
     $query = "INSERT INTO produk (nama, harga, catg_id, status, gambar) VALUES ('$nama', '$harga', '$catg_id', '$status', '$gambar_nama_unik')";
 
     if (mysqli_query($conn, $query)) {
@@ -74,7 +74,7 @@ if (isset($_POST['tambah'])) {
 
 // ==== Handle Edit Produk ====
 if (isset($_POST['edit'])) {
-    $id = intval($_POST['id']); // Pastikan ID adalah integer
+    $id = intval($_POST['id']);
     $nama = htmlspecialchars($_POST['nama']);
     $harga = htmlspecialchars($_POST['harga']);
     $catg_id = intval($_POST['catg_id']);
