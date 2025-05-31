@@ -66,8 +66,6 @@ if (isset($_POST['edit'])) {
         exit;
     }
 
-    move_uploaded_file($tmp, $upload_dir . $gambar);
-
     // Path upload konsisten dengan tambah produk
     $upload_dir = $_SERVER['DOCUMENT_ROOT'] . '/assets/image/';
 
