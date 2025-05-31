@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Panel</title>
+    <title>Vasta Computer</title>
     <!-- <link rel="stylesheet" href="<?= $base_url_admin ?>assets/css/style.css"> -->
     <link rel="stylesheet" href="<?= $base_url_admin ?>assets/bootstrap5/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +24,9 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="?page=productCategory/index">Category Produk</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="?page=users">Users</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="?logout=true">Keluar</a>

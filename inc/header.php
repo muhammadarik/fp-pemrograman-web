@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Landing Page</title>
+    <title>Vasta Computer | Service - Jual Beli Laptop</title>
     <link rel="stylesheet" href="<?= $base_url_user ?>assets/css/style.css">
     <link rel="stylesheet" href="<?= $base_url_user ?>assets/bootstrap5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= $base_url_user ?>assets/fontawesome/css/all.min.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
   <div class="container">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="<?= $base_url_user ?>">Vasta Computer</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -18,10 +19,10 @@
           <a class="nav-link active" aria-current="page" href="?page=home">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="?page=register">Home</a>
+          <a class="nav-link active" aria-current="page" href="?page=register">Registrasi</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="?page=login">Home</a>
+          <a class="nav-link active" aria-current="page" href="?page=login">Login</a>
         </li>
       </ul>
       <form class="d-flex">
