@@ -29,6 +29,9 @@
           <a class="nav-link" href="?page=users">Users</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="?page=pelanggan/index">Pelanggan</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="?logout=true">Keluar</a>
         </li>
     </div>

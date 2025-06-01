@@ -37,7 +37,7 @@ if (isset($_GET['delete'])) {
 
 
 <div class="container">
-  <h4>Data Produk</h4>
+  <h4>Data User</h4>
   <!-- Button trigger modal -->
 <button type="button" class=" my-2 btn btn-success" data-bs-toggle="modal" data-bs-target="#userModal">Tambah User</button>
 <div class="table-responsive">
