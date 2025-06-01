@@ -133,7 +133,8 @@ if ($current_page > $total_pages) {
 }
 
 // Query utama untuk mengambil data pelanggan dengan LIMIT dan OFFSET
-$pelanggan = mysqli_query($conn, "SELECT * FROM pelanggan
+$pelanggan = mysqli_query($conn, "SELECT p.*, u.username FROM pelanggan p
+                                        LEFT JOIN users u ON p.user_id = u.id
                                      $where
                                      ORDER BY id DESC
                                      LIMIT $limit OFFSET $offset"); // Tambahkan ORDER BY agar konsisten
@@ -178,6 +179,7 @@ $base_url_pagination = "?page=pelanggan/index" . (!empty($base_url_params) ? "&"
                 <th>No</th>
                 <th>Nama</th>
                 <th>Email</th>
+                <th>Username</th>
                 <th>No. HP</th>
                 <th>Dibuat Pada</th>
                 <th>Aksi</th>
@@ -194,6 +196,7 @@ $base_url_pagination = "?page=pelanggan/index" . (!empty($base_url_params) ? "&"
                 <!-- <td><?= htmlspecialchars($row['user_id']) ?></td> -->
                 <td><?= htmlspecialchars($row['nama']) ?></td>
                 <td><?= htmlspecialchars($row['email']) ?></td>
+                <td><?= htmlspecialchars($row['username']) ?></td>
                 <td><?= htmlspecialchars($row['no_hp']) ?></td>
                 <td><?= date('d M Y H:i:s', strtotime($row['created_at'])) ?></td>
                 <td>
