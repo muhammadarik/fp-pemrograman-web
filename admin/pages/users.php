@@ -11,7 +11,7 @@ if (isset($_POST['tambah'])) {
     $role = $_POST['role'];
 
     // Validasi role
-    $allowed_roles = ['admin', 'technician', 'pelanggan'];
+    $allowed_roles = ['admin', 'teknisi', 'pelanggan'];
     if (!in_array($role, $allowed_roles)) {
         echo "<script>alert('Role tidak valid!');</script>";
         exit;
@@ -135,7 +135,7 @@ if (isset($_GET['delete'])) {
               <label class="form-check-label" for="roleAdmin">Admin</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="role" id="roleTechnician" value="technician" required>
+              <input class="form-check-input" type="radio" name="role" id="roleTechnician" value="teknisi" required>
               <label class="form-check-label" for="roleTechnician">Technician</label>
             </div>
             <div class="form-check form-check-inline">
