@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['register'])) {
 
     if ($registration_result['status']) {
         // Jika registrasi berhasil, redirect ke halaman login menggunakan BASE_URL
-        echo "<script>alert('{$message}'); window.location.href='{$base_url_user}pages/login.php';</script>";
+        echo "<script>alert('{$message}'); window.location.href='{$base_url_user}/?pages=login.php';</script>";
         exit;
     } else {
         // Jika gagal, tampilkan pesan error di halaman ini

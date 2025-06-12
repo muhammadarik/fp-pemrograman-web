@@ -1,27 +1,144 @@
 <?php
 // include 'config/config.php';
 
-$query = "SELECT * FROM produk LIMIT 9";
+$query = "SELECT * FROM produk p where p.status = '1' LIMIT 9";
 $result = mysqli_query($conn, $query);
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ?>
 
+<style>
+:root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+        
+        .hero-section {
+            /* background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+            color: white; */
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .product-img {
+            height: 200px;
+            object-fit: contain;
+            padding: 1rem;
+        }
+        
+        .why-us-section {
+            background-color: #f8f9fa;
+        }
+        
+        .contact-section {
+            background: linear-gradient(135deg, #212529 0%, #343a40 100%);
+            color: white;
+        }
+        
+        .social-icon {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icon:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .stats-section .display-4 {
+            font-weight: 700;
+        }
+        
+        .stats-section .lead {
+            opacity: 0.8;
+        }
+        
+        .btn-primary {
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+        }
+        
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+</style>
+
 <!-- Hero Section -->
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary"> 
-        <div class="col-md-6 p-lg-5 mx-auto my-5"> 
-            <h1 class="display-3 fw-bold">Designed for engineers</h1> 
-            <h3 class="fw-normal text-muted mb-3">Build anything you want with Aperture</h3> 
-            <div class="d-flex gap-3 justify-content-center lead fw-normal"> 
-                <a class="icon-link" href="#">Learn more
-                <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg> </a> 
-                <a class="icon-link" href="#">Buy
-                <svg class="bi" aria-hidden="true"><use xlink:href="#chevron-right"></use></svg> </a> 
-            </div> 
-        </div> 
-        <div class="product-device shadow-sm d-none d-md-block"></div> <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div> 
-    </div>
+        <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Professional Laptop Repair & IT Solutions</h1>
+                    <p class="lead mb-4">Fast, reliable, and affordable repair services with 90-day warranty on all repairs.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#services" class="btn btn-light btn-lg px-4">Our Services</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg px-4">Contact Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <img src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" 
+                         alt="Laptop Repair" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Services Section -->
     <section id="services" class="py-5">
@@ -62,7 +179,7 @@ ini_set('display_errors', 1);
      <!-- Products Section -->
 <section id="products" class="py-5 bg-light">
     <div class="container">
-        <h2 class="text-center section-title">Our Products</h2>
+        <h2 class="text-center section-title">Produk Kami</h2>
         <div class="row g-4">
             <?php while ($row = mysqli_fetch_assoc($result)) : ?>
             <?php
@@ -84,9 +201,9 @@ ini_set('display_errors', 1);
             </div>
         <?php endwhile; ?>
         </div>
-        <div class="text-center mt-5">
+        <!-- <div class="text-center mt-5">
             <a href="products.php" class="btn btn-primary px-4">View All Products</a>
-        </div>
+        </div> -->
     </div>
 </section>
 
@@ -94,7 +211,7 @@ ini_set('display_errors', 1);
     <!-- Why Us Section -->
     <section id="why-us" class="why-us-section py-5">
         <div class="container">
-            <h2 class="text-center section-title">Why Choose Vasta Computer?</h2>
+            <h2 class="text-center section-title">Kenapa harus Vasta Komputer?</h2>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3">
                     <div class="card h-100 border-0 text-center p-4">
@@ -102,7 +219,7 @@ ini_set('display_errors', 1);
                             <i class="fas fa-clock"></i>
                         </div>
                         <h3>Fast Service</h3>
-                        <p>Most repairs completed within 24-48 hours with real-time status updates.</p>
+                        <p>Sebagian besar perbaikan selesai dalam waktu 24-48 jam dengan pembaruan status waktu nyata</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
@@ -110,8 +227,8 @@ ini_set('display_errors', 1);
                         <div class="feature-icon">
                             <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h3>Warranty</h3>
-                        <p>90-day warranty on all repairs and parts for your peace of mind.</p>
+                        <h3>Garansi</h3>
+                        <p>Garansi 90 hari untuk semua perbaikan dan suku cadang demi ketenangan pikiran Anda.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
@@ -120,7 +237,7 @@ ini_set('display_errors', 1);
                             <i class="fas fa-user-tie"></i>
                         </div>
                         <h3>Experts</h3>
-                        <p>Certified technicians with 5+ years of experience in laptop repairs.</p>
+                        <p>Teknisi berpengalaman 10+ tahun dalam perbaikan laptop.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3">
@@ -129,7 +246,7 @@ ini_set('display_errors', 1);
                             <i class="fas fa-bell"></i>
                         </div>
                         <h3>Notifications</h3>
-                        <p>Get SMS/email updates about your repair status at every stage.</p>
+                        <p>Dapatkan Email di setiap perubahan status.</p>
                     </div>
                 </div>
             </div>
