@@ -8,7 +8,7 @@ if (session_status() == PHP_SESSION_NONE) {
 $host = "localhost";
 $user = "root"; // Ganti sesuai hosting jika live
 $pass = "";     // Ganti sesuai hosting jika live
-$db   = "vastacom_db_new"; // Ganti jika perlu
+$db   = "vastacom_db_v1"; // Ganti jika perlu
 
 $conn = mysqli_connect($host, $user, $pass, $db);
 if (!$conn) {

@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../../config/config.php';
 
 // Database connection
 function getDBConnection() {
-    $conn = mysqli_connect("localhost", "root", "", "vastacom_db_new");
+    $conn = mysqli_connect("localhost", "root", "", "vastacom_db_v1");
     
     if (!$conn) {
         die("Koneksi database gagal: " . mysqli_connect_error());
