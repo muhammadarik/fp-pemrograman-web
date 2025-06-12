@@ -3,6 +3,8 @@
 <head>
     <title>Vasta Computer</title>
     <!-- <link rel="stylesheet" href="<?= $base_url_admin ?>assets/css/style.css"> -->
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="<?= $base_url_admin ?>assets/bootstrap5/css/bootstrap.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
