@@ -334,15 +334,16 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_service_detail' && isset($
                                 <th>Tanggal Masuk</th>
                                 <th>Jenis Kerusakan</th>
                                 <th>Status</th>
+                                <th>Tanggal Update</th>
                                 <th>Teknisi</th>
                                 <th>Foto</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($services as $service): ?>
+                            <?php $no = 1; foreach ($services as $service): ?>
                             <tr>
-                                <td>#<?php echo $service['id']; ?></td>
+                                <td><h5><?php echo $no++ ?></h5></td>
                                 <td><?php echo date('d M Y H:i', strtotime($service['tanggal_masuk'])); ?></td>
                                 <td><?php echo htmlspecialchars($service['jenis_kerusakan']); ?></td>
                                 <td>
@@ -359,6 +360,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_service_detail' && isset($
                                         <?php echo ucfirst($service['status']); ?>
                                     </span>
                                 </td>
+                                <td><?php echo date('d M Y H:i', strtotime($service['tanggal_update'])); ?></td>
                                 <td>
                                     <?php echo $service['nama_teknisi'] ? htmlspecialchars($service['nama_teknisi']) : '-'; ?>
                                 </td>
