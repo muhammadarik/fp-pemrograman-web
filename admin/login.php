@@ -32,7 +32,7 @@ if (isset($_POST['login'])) {
             $_SESSION['admin_id'] = $data['id'];
             $_SESSION['username'] = $data['username'];
             $_SESSION['role'] = $data['role'];
-            header("Location: index.php");
+            header("Location: ../admin/index.php");
             exit;
         } else {
             echo "Password salah.";

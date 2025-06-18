@@ -16,33 +16,39 @@ $offset = ($current_page - 1) * $limit; // Offset untuk query SQL
 
 // ==== Handle Tambah Pelanggan ====
 if (isset($_POST['tambah'])) {
-    $user_id = htmlspecialchars($_POST['user_id']); // Asumsi user_id adalah string/varchar
     $nama = htmlspecialchars($_POST['nama']);
     $email = htmlspecialchars($_POST['email']);
     $no_hp = htmlspecialchars($_POST['no_hp']);
 
-    // Query untuk insert pelanggan
-    // Gunakan prepared statement untuk keamanan
-    $query = "INSERT INTO pelanggan (user_id, nama, email, no_hp, created_at) VALUES (?, ?, ?, ?, NOW())";
-    $stmt = mysqli_prepare($conn, $query);
+    // 1. Insert ke tabel users terlebih dahulu
+    $username = strtolower(str_replace(' ', '', $nama)); // Contoh: nama jadi username
+    $default_password = password_hash("123456", PASSWORD_DEFAULT); // default password
+    $role = 'pelanggan';
 
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ssss", $user_id, $nama, $email, $no_hp);
-        if (mysqli_stmt_execute($stmt)) {
+    $query_user = "INSERT INTO users (username, password, role, created_at) VALUES (?, ?, ?, NOW())";
+    $stmt_user = mysqli_prepare($conn, $query_user);
+    mysqli_stmt_bind_param($stmt_user, "sss", $username, $default_password, $role);
+
+    if (mysqli_stmt_execute($stmt_user)) {
+        $new_user_id = mysqli_insert_id($conn); // ambil user_id yang baru dibuat
+
+        // 2. Lanjutkan insert ke tabel pelanggan
+        $query_pelanggan = "INSERT INTO pelanggan (user_id, nama, email, no_hp, created_at) VALUES (?, ?, ?, ?, NOW())";
+        $stmt_pelanggan = mysqli_prepare($conn, $query_pelanggan);
+        mysqli_stmt_bind_param($stmt_pelanggan, "isss", $new_user_id, $nama, $email, $no_hp);
+
+        if (mysqli_stmt_execute($stmt_pelanggan)) {
             $_SESSION['message'] = 'Pelanggan berhasil ditambahkan!';
-            header('Location: ?page=pelanggan/index'); // Redirect dengan GET param
+            header('Location: ?page=pelanggan/index');
             exit();
         } else {
-            $_SESSION['message'] = 'Gagal menambahkan pelanggan: ' . htmlspecialchars(mysqli_error($conn));
+            $_SESSION['message'] = 'Gagal menambahkan pelanggan: ' . mysqli_error($conn);
         }
-        mysqli_stmt_close($stmt);
     } else {
-        $_SESSION['message'] = 'Gagal menyiapkan statement: ' . htmlspecialchars(mysqli_error($conn));
+        $_SESSION['message'] = 'Gagal menambahkan user: ' . mysqli_error($conn);
     }
-    // Jika ada pesan error, pastikan untuk tidak redirect agar alert bisa tampil
-    echo "<script>alert('" . addslashes($_SESSION['message']) . "');</script>";
-    unset($_SESSION['message']); // Hapus pesan setelah ditampilkan
 }
+
 
 // ==== Handle Edit Pelanggan ====
 if (isset($_POST['edit'])) {
@@ -280,7 +286,7 @@ $base_url_pagination = "?page=pelanggan/index" . (!empty($base_url_params) ? "&"
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <div class="modal-body">
-                <input type="hidden" name="user_id" value="0">
+                <!-- <input type="hidden" name="user_id" value="0"> -->
                 <div class="mb-3">
                     <label for="nama_tambah" class="form-label">Nama Lengkap</label>
                     <input type="text" name="nama" id="nama_tambah" class="form-control" placeholder="Nama Pelanggan" required>

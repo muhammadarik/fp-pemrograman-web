@@ -112,7 +112,7 @@ function handleAddService() {
                            VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
     $stmt->bind_param("iisssss", $id_pelanggan, $id_teknisi, $jenis_kerusakan, $deskripsi, $status, $tanggal_masuk, $foto_kerusakan);
     
-    header('Content-Type: application/json');
+    // header('Content-Type: application/json');
     if ($stmt->execute()) {
         $serviceId = $stmt->insert_id;
         
@@ -120,16 +120,11 @@ function handleAddService() {
         $userId = $_SESSION['user_id'] ?? 1; // Use logged-in user's ID
         addStatusHistory($serviceId, $status, $userId, 'Service created');
         
-        echo json_encode([
-            'success' => true,
-            'message' => 'Service added successfully',
-            'id' => $serviceId
-        ]);
+        // Redirect ke halaman service setelah berhasil
+        header("Location: /fp-pemrograman-web/admin/index.php?page=service/index&success=add");
     } else {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Error adding service: ' . $stmt->error
-        ]);
+        // Redirect ke halaman service setelah gagal
+        header("Location: /fp-pemrograman-web/admin/index.php?page=service/index&error=1");
     }
     
     $stmt->close();
@@ -143,7 +138,7 @@ function handleEditService() {
         exit;
     }
     
-    $requiredFields = ['id', 'id_pelanggan', 'jenis_kerusakan', 'deskripsi', 'status', 'tanggal_masuk'];
+    $requiredFields = ['id', 'id_pelanggan', 'jenis_kerusakan', 'deskripsi', 'status'];
     foreach ($requiredFields as $field) {
         if (empty($_POST[$field])) {
             header('Content-Type: application/json');
@@ -161,7 +156,7 @@ function handleEditService() {
     $jenis_kerusakan = trim($_POST['jenis_kerusakan']);
     $deskripsi = trim($_POST['deskripsi']);
     $status = trim($_POST['status']);
-    $tanggal_masuk = trim($_POST['tanggal_masuk']);
+    // $tanggal_masuk = trim($_POST['tanggal_masuk']);
     $id_teknisi = isset($_POST['id_teknisi']) ? (int)$_POST['id_teknisi'] : null;
     
     // Get current service data to check for status change
@@ -195,11 +190,11 @@ function handleEditService() {
     // Update service
     $stmt = $conn->prepare("UPDATE service 
                            SET id_pelanggan = ?, id_teknisi = ?, jenis_kerusakan = ?, deskripsi = ?, 
-                               status = ?, tanggal_masuk = ?, tanggal_update = NOW(), foto_kerusakan = ?
+                               status = ?, tanggal_update = NOW(), foto_kerusakan = ?
                            WHERE id = ?");
-    $stmt->bind_param("iisssssi", $id_pelanggan, $id_teknisi, $jenis_kerusakan, $deskripsi, $status, $tanggal_masuk, $foto_kerusakan, $id);
+    $stmt->bind_param("iissssi", $id_pelanggan, $id_teknisi, $jenis_kerusakan, $deskripsi, $status, $foto_kerusakan, $id);
     
-    header('Content-Type: application/json');
+    // header('Content-Type: application/json');
     if ($stmt->execute()) {
         // Add status to history if changed
         if ($statusChanged) {
@@ -207,17 +202,12 @@ function handleEditService() {
             addStatusHistory($id, $status, $userId, 'Status updated');
         }
         
-        echo json_encode([
-            'success' => true,
-            'message' => 'Service updated successfully'
-        ]);
-    } else {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Error updating service: ' . $stmt->error
-        ]);
-    }
-    
+        // Redirect ke halaman service setelah berhasil
+            header("Location: /fp-pemrograman-web/admin/index.php?page=service/index&success=edit");
+        } else {
+            // Redirect ke halaman service setelah gagal
+            header("Location: /fp-pemrograman-web/admin/index.php?page=service/index&error=1");
+        }
     $stmt->close();
     $conn->close();
     exit;
@@ -235,6 +225,12 @@ function handleDeleteService() {
     $service = getServiceById($id);
     
     $conn = getDBConnection();
+
+    // Hapus semua history terkait service
+    $deleteHistory = $conn->prepare("DELETE FROM history_status WHERE service_id = ?");
+    $deleteHistory->bind_param("i", $id);
+    $deleteHistory->execute();
+    $deleteHistory->close();
     $stmt = $conn->prepare("DELETE FROM service WHERE id = ?");
     $stmt->bind_param("i", $id);
     
@@ -248,16 +244,12 @@ function handleDeleteService() {
             }
         }
         
-        echo json_encode([
-            'success' => true,
-            'message' => 'Service deleted successfully'
-        ]);
-    } else {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Error deleting service: ' . $stmt->error
-        ]);
-    }
+        // Redirect ke halaman service setelah berhasil
+            header("Location: /fp-pemrograman-web/admin/index.php?page=service/index&success=delete");
+        } else {
+            // Redirect ke halaman service setelah gagal
+            header("Location: /fp-pemrograman-web/admin/index.php?page=service/index&error=1");
+        }
     
     $stmt->close();
     $conn->close();

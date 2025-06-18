@@ -1,4 +1,30 @@
-<? $_SESSION['username'] = $data['username']; ?>
+<?php
+include '../config/config.php';
+$query = "SELECT * FROM produk p where p.status = '1'";
+$result = mysqli_query($conn, $query);
+
+//mengambil data SERVICE untuk total section
+$query_service = "SELECT COUNT(*) as total_service FROM service";
+$result_service = mysqli_query($conn, $query_service);
+$data_service = mysqli_fetch_assoc($result_service);
+$total_service = $data_service['total_service'];
+
+//mengambil data PRODUK untuk stats section
+$query_produk = "SELECT COUNT(*) as total_produk FROM produk WHERE status = '1'";
+$result_produk = mysqli_query($conn, $query_produk);
+$data_produk = mysqli_fetch_assoc($result_produk);
+$total_produk = $data_produk['total_produk'];
+
+//mengambil data PELANGGAN untuk stats section
+$query_cust = "SELECT COUNT(*) as total_cust FROM pelanggan";
+$result_cust = mysqli_query($conn, $query_cust);
+$data_cust = mysqli_fetch_assoc($result_cust);
+$total_cust = $data_cust['total_cust'];
+
+error_reporting (E_ALL ^ E_NOTICE);
+ini_set('display_errors', 1);
+
+?>
 
 <section id="dashboard" class="dashboard">
     <div class="container">
@@ -6,73 +32,11 @@
         <p>Selamat datang di halaman dashboard <strong><?= $_SESSION['username'] ?></strong></p>
     </div>
 </section>
-
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Vastacom</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"> -->
-    <style>
-        .sidebar {
-            min-height: 100vh;
-            background-color: #343a40;
-        }
-        .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.75);
-        }
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
-            color: white;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .card-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .stat-card {
-            transition: transform 0.3s;
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-    </style>
-<!-- </head>
-<body> -->
-    <div class="container-fluid">
+    
+    <div class="container">
         <div class="row">
             <!-- Main Content -->
             <div class="col-md-12 p-4">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3>Dashboard Admin</h3>
-                    <div class="d-flex align-items-center">
-                        <div class="dropdown me-3">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="notificationsDropdown" data-bs-toggle="dropdown">
-                                <i class="bi bi-bell"></i>
-                                <span class="badge bg-danger rounded-pill">3</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><h6 class="dropdown-header">Notifikasi</h6></li>
-                                <li><a class="dropdown-item" href="#">Service baru dari Pelanggan A</a></li>
-                                <li><a class="dropdown-item" href="#">Pembayaran invoice #1234</a></li>
-                                <li><a class="dropdown-item" href="#">Permintaan teknisi</a></li>
-                            </ul>
-                        </div>
-                        <div class="dropdown">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown">
-                                <i class="bi bi-person-circle me-1"></i>Admin
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profil</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Pengaturan</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="tab-content">
                     <!-- Dashboard Tab -->
@@ -84,8 +48,8 @@
                                     <div class="card-body text-center">
                                         <i class="bi bi-tools card-icon"></i>
                                         <h5 class="card-title">Total Service</h5>
-                                        <h2 class="card-text">124</h2>
-                                        <a href="#services" class="text-white stretched-link" data-bs-toggle="tab"></a>
+                                        <h2 class="card-text"><?= $total_service ?>+</h2>
+                                        <!-- <a href="#services" class="text-white stretched-link" data-bs-toggle="tab"></a> -->
                                     </div>
                                 </div>
                             </div>
@@ -94,7 +58,7 @@
                                     <div class="card-body text-center">
                                         <i class="bi bi-people card-icon"></i>
                                         <h5 class="card-title">Pelanggan</h5>
-                                        <h2 class="card-text">56</h2>
+                                        <h2 class="card-text"><?= $total_produk ?>+</h2>
                                         <a href="#customers" class="text-white stretched-link" data-bs-toggle="tab"></a>
                                     </div>
                                 </div>
@@ -262,8 +226,8 @@
         </div>
     </div>
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Service Status Chart
         const ctx = document.getElementById('serviceStatusChart').getContext('2d');
@@ -292,3 +256,28 @@
             }
         });
     </script>
+
+
+<style>
+        .sidebar {
+            min-height: 100vh;
+            background-color: #343a40;
+        }
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.75);
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .stat-card {
+            transition: transform 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>

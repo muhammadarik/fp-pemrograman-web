@@ -17,6 +17,35 @@ $totalServices = $totalResult['success'] ? $totalResult['total'] : 0;
 $totalPages = max(1, ceil($totalServices / $perPage));
 
 ?>
+
+<!-- NOTIFIKASI KETIKA BERHASIL ATAU GAGAL -->
+<?php if (isset($_GET['success'])): ?>
+    <?php if ($_GET['success'] === 'add'): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data service berhasil <strong>ditambahkan</strong>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php elseif ($_GET['success'] === 'edit'): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data service berhasil <strong>diperbarui</strong>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php elseif ($_GET['success'] === 'delete'): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            Data service berhasil <strong>dihapus</strong>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php if (isset($_GET['error'])): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Terjadi kesalahan saat memproses data service.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+
+
     <style>
         /* body {
             padding: 20px;
@@ -308,7 +337,7 @@ $totalPages = max(1, ceil($totalServices / $perPage));
                     
                     <div class="mb-3">
                         <label for="edit_tanggal_masuk" class="form-label">Arrival Date</label>
-                        <input type="datetime-local" class="form-control" id="edit_tanggal_masuk" name="tanggal_masuk" required>
+                        <input type="datetime-local" class="form-control" id="edit_tanggal_masuk" name="tanggal_masuk" disabled>
                     </div>
                     
                     <div class="mb-3">

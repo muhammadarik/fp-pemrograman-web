@@ -263,20 +263,16 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_service_detail' && isset($
             transform: scale(1.5);
         }
     </style>
-    <div class="container-fluid">
+    <div class="container">
         <!-- Header -->
-        <header class="d-flex justify-content-between align-items-center py-3 mb-4 border-bottom">
-            <h1 class="h4">Dashboard Pelanggan</h1>
-            <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown">
-                    <i class="bi bi-person-circle"></i> <?php echo htmlspecialchars($pelanggan['nama']); ?>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="profil.php"><i class="bi bi-person"></i> Profil Saya</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
-                </ul>
-            </div>
+        <header class="pb-4 mb-4 border-bottom">
+            <h1>Dashboard Pelanggan</h1>
+            <h6>Selamat datang Kak! <strong><?php echo htmlspecialchars($pelanggan['nama']); ?></strong>. Disini anda dapat memantau status service anda, dan data service anda.</h6>
+            <p>Jika ada kesalahan terkait dengan data atau follow up bisa hubungi kami -> <i class="fa-brands fa-whatsapp"></i>
+                    <strong><a href="https://wa.me/6281554091512" class="text-dark text-decoration-none" target="_blank">
+                        0815-5409-1512
+                    </a></strong>
+            </p>
         </header>
 
         <!-- Ringkasan Status -->
@@ -320,9 +316,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_service_detail' && isset($
             <div class="card-header bg-white">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Daftar Service Saya</h5>
-                    <a href="buat_service.php" class="btn btn-primary btn-sm">
-                        <i class="bi bi-plus-circle"></i> Buat Service Baru
-                    </a>
                 </div>
             </div>
             <div class="card-body">
