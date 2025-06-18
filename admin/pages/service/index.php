@@ -163,13 +163,13 @@ $totalPages = max(1, ceil($totalServices / $perPage));
                                         <td><?= htmlspecialchars($service['technician_name'] ?? 'N/A') ?></td>
                                         <td>
                                             <button class="btn btn-sm btn-warning edit-service" data-id="<?= $service['id'] ?>">
-                                                <i class="fas fa-edit"></i>
+                                                <i class="fa-regular fa-pen-to-square">Edit</i>
                                             </button>
                                             <button class="btn btn-sm btn-danger delete-service" data-id="<?= $service['id'] ?>">
-                                                <i class="fas fa-trash"></i>
+                                                <i class="fa-regular fa-trash">Delete</i>
                                             </button>
                                             <button class="btn btn-sm btn-info view-service" data-id="<?= $service['id'] ?>">
-                                                <i class="fas fa-eye"></i>
+                                                <i class="fas fa-eye">View</i>
                                             </button>
                                         </td>
                                     </tr>
@@ -376,7 +376,7 @@ $totalPages = max(1, ceil($totalServices / $perPage));
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <p><strong>ID:</strong> <span id="view_id"></span></p>
+                            <p><strong>ID:</strong> <span class="hidden" id="view_id"></span></p>
                             <p><strong>Customer:</strong> <span id="view_customer"></span></p>
                             <p><strong>Damage Type:</strong> <span id="view_jenis_kerusakan"></span></p>
                             <p><strong>Description:</strong> <span id="view_deskripsi"></span></p>
@@ -475,7 +475,7 @@ $totalPages = max(1, ceil($totalServices / $perPage));
                             }
                             
                             // Load status history
-                            fetch(`service.php?action=history&service_id=${serviceId}`)
+                            fetch(`pages/service/service.php?action=history&service_id=${serviceId}`)
                                 .then(response => response.json())
                                 .then(historyData => {
                                     const historyContainer = document.getElementById('statusHistory');
