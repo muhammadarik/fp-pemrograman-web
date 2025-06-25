@@ -112,9 +112,10 @@ $totalPages = max(1, ceil($totalServices / $perPage));
                         </button>
                     </div>
                     <div class="col-md-6">
-                        <form method="GET" action="">
+                        <form method="GET" action="index.php">
+                            <input type="hidden" name="page" value="service/index">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="search" placeholder="Search by description or damage type..." value="<?= htmlspecialchars($search) ?>">
+                                <input type="text" class="form-control" name="search" placeholder="Search by description or damage type..." value="<?= htmlspecialchars($search ?? '') ?>">
                                 <button class="btn btn-outline-secondary" type="submit">
                                     <i class="fas fa-search"></i> Search
                                 </button>
@@ -427,6 +428,59 @@ $totalPages = max(1, ceil($totalServices / $perPage));
             </div>
         </div>
     </div>
+
+
+<!-- MODAL TAMBAH INVOICE -->
+
+<div class="modal fade" id="modalInvoice<?= $service['id'] ?>" tabindex="-1">
+  <div class="modal-dialog">
+    <form action="../invoice/invoice.php" method="POST">
+      <input type="hidden" name="service_id" value="<?= $service['id'] ?>">
+      <input type="hidden" name="id_admin_pembuat" value="<?= $_SESSION['user_id'] ?>">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Buat Invoice</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>Total Biaya</label>
+            <input type="number" name="total_biaya" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Metode Pembayaran</label>
+            <input type="text" name="metode_pembayaran" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Status Pembayaran</label>
+            <select name="status_pembayaran" class="form-control">
+              <option value="pending">Pending</option>
+              <option value="lunas">Lunas</option>
+              <option value="batal">Batal</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label>Keterangan</label>
+            <textarea name="keterangan" class="form-control"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" name="submit_invoice" class="btn btn-primary">Simpan Invoice</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- script modal tambah invoice -->
+<script>
+  $(document).on('click', '.create-invoice', function () {
+    var serviceId = $(this).data('service-id');
+    $('#modalServiceId').val(serviceId);
+  });
+</script>
+
+
 
     <script>
         // View Service Button Click
